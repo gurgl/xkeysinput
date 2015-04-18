@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/pi/xkeys/!svn/ver/16/piehid
+END
+hid-libusb.c
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/pi/xkeys/!svn/ver/16/piehid/hid-libusb.c
+END
+hidapi.h
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/pi/xkeys/!svn/ver/14/piehid/hidapi.h
+END
+PieHid32.c
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/pi/xkeys/!svn/ver/16/piehid/PieHid32.c
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pi/xkeys/!svn/ver/4/piehid/CMakeLists.txt
+END
+PieHid32.h
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/pi/xkeys/!svn/ver/10/piehid/PieHid32.h
+END
