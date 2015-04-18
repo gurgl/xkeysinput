@@ -32,6 +32,7 @@ void print_buf(char *data, int len)
 }
 extern int uinputfd;
 extern int fire_key(__u16);
+extern int release_key(__u16);
 extern int setup_uinputfd(const char *);
 extern int close_uinputfd();
 
@@ -83,6 +84,10 @@ int reader() {
 		exit(1);
 	}
 
+	int left_down;
+	int middle_down;
+	int right_down;
+
 	char data[80];
 	while (1) {
 
@@ -90,22 +95,45 @@ int reader() {
 
 		res  = ReadLast(handle, data);
 		if (res == 0) {
-			printf("LAST: \n");
-			print_buf(data, 33);
-			printf("ENDLAST\n\n");
+			//printf("LAST: \n");
+			//print_buf(data, 33);
+			//printf("ENDLAST\n\n");
 		}
 
 		res = 0;
 
+
 		while (res == 0) {
 			res = BlockingReadData(handle, data, 20);
 			if (res == 0) {
-				puts("input kom");
+
+
+				//puts("input kom");
 				//print_buf(data, 33);
-				fire_key(KEY_A);
+				//printf("DATA %x", data[3]);
+				if(data[3] & 0x02) {
+					left_down = 1;
+					fire_key(KEY_LEFTSHIFT);
+					printf("Left down");
+				} else {
+					if(left_down == 1) {
+						release_key(KEY_LEFTSHIFT);
+						printf("Left up");
+					}
+					left_down = 0;
+				}
+				if(data[3] & 0x04) {
+					printf("Middle down");
+				}
+
+				if(data[3] & 0x08) {
+					printf("Right down");
+				}
+
+				//fire_key(KEY_A);
 			}
 			else if (res == PIE_HID_READ_INSUFFICIENT_DATA) {
-				printf(".");
+				//printf(".");
 				fflush(stdout);
 			}
 			else {
@@ -113,11 +141,11 @@ int reader() {
 			}
 		}
 
-		printf("Sleeping\n");
+		//printf("Sleeping\n");
 		#if 1
 		if (res != 0) {
-			//usleep(10*1000); // Sleep 10 milliseconds.
-			sleep(2); // 2 seconds
+			usleep(10*1000); // Sleep 10 milliseconds.
+			//sleep(2); // 2 seconds
 		}
 		#endif
 

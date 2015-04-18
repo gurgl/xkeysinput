@@ -43,6 +43,10 @@ int fire_key(__u16 key){
     write_uinput(EV_KEY, key, 1);
     return 0;
 }
+int release_key(__u16 key){
+    write_uinput(EV_KEY, key, 0);
+    return 0;
+}
 
 void write_uinput(__u16 type, __u16 code, __s32 value){
     struct input_event ie;
