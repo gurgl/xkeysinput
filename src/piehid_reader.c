@@ -42,6 +42,22 @@ int main(int argc, char **argv){
 	reader();
 }
 
+int blaha(unsigned char input, unsigned char mask,__u16 key,
+		int previous_state) {
+	if (input & mask) {
+		fire_key(key);
+		printf("D%d", key);
+		return 1;
+	} else {
+		if (previous_state == 1) {
+			release_key(key);
+			printf("U%d", key);
+		}
+		return 0;
+	}
+	//return left_down;
+}
+
 int reader() {
     puts("Welcome to use SPI keyboard program v0.1!");
 
@@ -110,24 +126,13 @@ int reader() {
 				//puts("input kom");
 				//print_buf(data, 33);
 				//printf("DATA %x", data[3]);
-				if(data[3] & 0x02) {
-					left_down = 1;
-					fire_key(KEY_LEFTSHIFT);
-					printf("Left down");
-				} else {
-					if(left_down == 1) {
-						release_key(KEY_LEFTSHIFT);
-						printf("Left up");
-					}
-					left_down = 0;
-				}
-				if(data[3] & 0x04) {
-					printf("Middle down");
-				}
+				unsigned char input = data[3];
 
-				if(data[3] & 0x08) {
-					printf("Right down");
-				}
+
+				left_down = blaha(input, 0x02, KEY_LEFTSHIFT, left_down);
+				middle_down = blaha(input, 0x04, KEY_LEFTCTRL, middle_down);
+				right_down = blaha(input, 0x08, KEY_LEFTALT, right_down);
+
 
 				//fire_key(KEY_A);
 			}
