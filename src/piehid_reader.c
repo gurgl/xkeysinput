@@ -107,7 +107,6 @@ int reader() {
 			res = BlockingReadData(handle, data, 20);
 			if (res == 0) {
 
-
 				//puts("input kom");
 				//print_buf(data, 33);
 				//printf("DATA %x", data[3]);
