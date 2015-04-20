@@ -42,7 +42,7 @@ int main(int argc, char **argv){
 	reader();
 }
 
-int blaha(unsigned char input, unsigned char mask,__u16 key,
+int poll_key(unsigned char input, unsigned char mask,__u16 key,
 		int previous_state) {
 	if (input & mask) {
 		fire_key(key);
@@ -129,9 +129,9 @@ int reader() {
 				unsigned char input = data[3];
 
 
-				left_down = blaha(input, 0x02, KEY_LEFTSHIFT, left_down);
-				middle_down = blaha(input, 0x04, KEY_LEFTCTRL, middle_down);
-				right_down = blaha(input, 0x08, KEY_LEFTALT, right_down);
+				left_down = poll_key(input, 0x02, KEY_LEFTSHIFT, left_down);
+				middle_down = poll_key(input, 0x04, KEY_LEFTCTRL, middle_down);
+				right_down = poll_key(input, 0x08, KEY_LEFTALT, right_down);
 
 
 				//fire_key(KEY_A);
